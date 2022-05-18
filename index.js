@@ -21,12 +21,10 @@ async function run() {
     try {
         await client.connect();
         const tasksCollection = client.db("upkeep").collection("tasks");
-        console.log("db connected");
 
         //add  task
         app.post("/addTask", async (req, res) => {
             const doc = req.body;
-            console.log(doc);
             const result = await tasksCollection.insertOne(doc);
             res.status(200).send(result);
         });
@@ -55,7 +53,6 @@ async function run() {
         //complete task
         app.put("/myTasks/:id", async (req, res) => {
             const id = req.params.id;
-            console.log(id);
             try {
                 const filter = { _id: ObjectId(id) };
                 const options = { upsert: true };
